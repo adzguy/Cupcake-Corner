@@ -9,29 +9,46 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var username = ""
-    @State private var email = ""
     
-    var disabledForm: Bool {
-        username.count < 5 || email.count < 5 
-        
-    }
+    @ObservedObject var order = Order()
     
     var body: some View {
-        Form {
-            Section {
-                TextField("Username", text: $username)
-                TextField("Email", text: $email)
-            }
-            Section{
-                Button("Create Account") {
-                    print("Creating account...")
+        NavigationView {
+            Form {
+                Section {
+                    Picker("Select your cake type", selection: $order.type) {
+                        ForEach(0..<Order.types.count, id: \.self){
+                            Text(Order.types[$0])
+                        }
+                    }
+                    
+                    Stepper("Number of cakes: \(order.quantity)", value: $order.quantity, in: 3...20)
+                }
+                Section {
+                    Toggle(isOn: $order.specialRequestEnabled.animation()) {
+                        Text("Any special request?")
+                    }
+                    
+                    if order.specialRequestEnabled {
+                        Toggle(isOn: $order.extraFrosting){
+                            Text("Add extra frosting")
+                        }
+                        
+                        Toggle(isOn: $order.addSpinkles){
+                            Text("Add extra sprinkles")
+                        }
+                    }
+                }
+                
+                Section {
+                    NavigationLink(destination: AddressView(order: order)) {
+                        Text("Delivery details")
+                    }
                 }
             }
-        .disabled(disabledForm)
+            .navigationBarTitle("Cupcake Corner")
         }
     }
-    
 }
 
 struct ContentView_Previews: PreviewProvider {
