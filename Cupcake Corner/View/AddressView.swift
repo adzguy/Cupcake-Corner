@@ -18,6 +18,11 @@ struct AddressView: View {
                 Section {
                     TextField("Name", text: $order.name)
                     TextField("Street Address", text: $order.streetAddress)
+                    Picker("Select State", selection: $order.state) {
+                        ForEach(0..<Order.states.count, id: \.self){
+                            Text(Order.states[$0])
+                        }
+                    }
                     TextField("City", text: $order.city)
                     TextField("Zip", text: $order.zip)
                 }

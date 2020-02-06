@@ -11,12 +11,13 @@ import Foundation
 class Order: ObservableObject, Codable {
     
     enum CodingKeys: CodingKey {
-        case type, quantity, extraFrosting, addSprinkles, name, streetAddress, city, zip
+        case type, quantity, extraFrosting, addSprinkles, name, streetAddress, state, city, zip
     }
     
     static let types = ["Vanilla", "Strawberry", "Chocolate", "Rainbow"]
-    
     @Published var type = 0
+    static let states = [ "AK","AL","AR","AS","AZ","CA","CO","CT","DC","DE","FL","GA","GU","HI","IA","ID","IL","IN","KS","KY","LA","MA","MD","ME","MI","MN","MO","MS","MT","NC","ND","NE","NH","NJ","NM","NV","NY","OH","OK","OR","PA","PR","RI","SC","SD","TN","TX","UT","VA","VI","VT","WA","WI","WV","WY"]
+    @Published var state = 0    
     @Published var quantity = 3
     
     @Published var specialRequestEnabled = false {
@@ -46,6 +47,12 @@ class Order: ObservableObject, Codable {
             zip.trimmingCharacters(in: .whitespaces).count == 0 {
             return false
         }
+        
+        if (Int(zip) == nil) || zip.count < 5 || zip.count > 5{
+            return false
+        }
+        
+        
         return true
     }
     
@@ -80,6 +87,7 @@ class Order: ObservableObject, Codable {
         
         name = try container.decode(String.self, forKey: .name)
         streetAddress = try container.decode(String.self, forKey: .streetAddress)
+        state = try container.decode(Int.self, forKey: .state)
         city = try container.decode(String.self, forKey: .city)
         zip = try container.decode(String.self, forKey: .zip)
     }
@@ -96,6 +104,7 @@ class Order: ObservableObject, Codable {
         
         try container.encode(name, forKey: .name)
         try container.encode(streetAddress, forKey: .streetAddress)
+        try container.encode(state, forKey: .state)
         try container.encode(city, forKey: .city)
         try container.encode(zip, forKey: .zip)
     }

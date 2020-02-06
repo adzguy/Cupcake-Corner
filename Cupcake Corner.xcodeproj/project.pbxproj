@@ -64,10 +64,8 @@
 			children = (
 				253025DF23C1435100160C80 /* AppDelegate.swift */,
 				253025E123C1435100160C80 /* SceneDelegate.swift */,
-				253025E323C1435100160C80 /* ContentView.swift */,
-				253025F323C1C0F700160C80 /* Order.swift */,
-				253025F523C1CF9400160C80 /* AddressView.swift */,
-				253025F723C1D69700160C80 /* CheckoutView.swift */,
+				2568332C23D64D2B006A44DE /* View */,
+				2568332B23D64D1A006A44DE /* Model */,
 				253025E523C1435500160C80 /* Assets.xcassets */,
 				253025EA23C1435500160C80 /* LaunchScreen.storyboard */,
 				253025ED23C1435500160C80 /* Info.plist */,
@@ -82,6 +80,24 @@
 				253025E823C1435500160C80 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		2568332B23D64D1A006A44DE /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				253025F323C1C0F700160C80 /* Order.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		2568332C23D64D2B006A44DE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				253025E323C1435100160C80 /* ContentView.swift */,
+				253025F523C1CF9400160C80 /* AddressView.swift */,
+				253025F723C1D69700160C80 /* CheckoutView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

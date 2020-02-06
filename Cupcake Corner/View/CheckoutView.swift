@@ -19,7 +19,7 @@ struct CheckoutView: View {
         GeometryReader { geo in
             ScrollView {
                 VStack {
-                    Image("cupcakes")
+                    Image(decorative: "cupcakes")
                         .resizable()
                         .scaledToFit()
                         .frame(width: geo.size.width)
@@ -69,9 +69,11 @@ struct CheckoutView: View {
                 return
             }
             
-            if let decodedOrder = try? JSONDecoder().decode(Order.self, from: data){
-                self.confirmationMessage = "Your order for \(decodedOrder.quantity) x \(Order.types[decodedOrder.type].lowercased()) cupcakes is on its way!"
+            let decoder = JSONDecoder()
+            
+            if let decodedOrder = try? decoder.decode(Order.self, from: data){
                 self.showingConfirmation = true
+                self.confirmationMessage = "Your order for \(decodedOrder.quantity) x \(Order.types[decodedOrder.type].lowercased()) cupcakes is on its way!"
                 self.showingNetworkError = false
             }
             else {
